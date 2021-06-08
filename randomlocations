@@ -1,0 +1,61 @@
+# Fill me in!
+app.distance = 0
+app.angle = 0
+cX1 = randrange(25,375)
+cY1 = randrange(25,375)
+
+#Circle(cX1,cY1, 22, fill='hotPink')
+class Circ:
+    
+    def __init__(self, x, y, r, color):
+        self.x = x
+        self.y = y
+        self.r = r
+        self.color = color
+    
+    def drawCircle(self):
+        Circle(self.x, self.y, self.r, fill=self.color)
+    
+class Header:
+    
+    def __init__(self, title, result, y):
+        self.title = title
+        self.result = result
+        self.setY = y
+    
+    def drawHeader(self):
+        self.output = Label(self.title + ": " + str(self.result), 10, self.setY, align='left')
+        
+    def updateHeader(self):
+        self.output.value = self.title + ": " + str(self.result)
+        self.output.left = 10
+        
+#Label('Distance= ', 40, 10)
+# dLabel = Label(app.distance, 120, 10)
+# dLabel.left = 75
+# Label('Angle= ', 40, 25)
+# aLabel = Label(app.angle, 120, 25)
+# aLabel.left = 75
+
+circle1 = Circ(cX1,cY1, 22, 'hotPink')
+circle1.drawCircle()
+disHeader = Header('Distance', app.distance, 20)
+disHeader.drawHeader()
+angHeader = Header('Angle', app.angle, 40)
+angHeader.drawHeader()
+
+def onMousePress(mouseX, mouseY):
+
+    cX2 = mouseX
+    cY2 = mouseY
+    circle2 = Circ(cX2,cY2, 20, 'magenta')
+    circle2.drawCircle()
+    app.distance = (distance(cX1, cY1, cX2, cY2))//1
+    disHeader.result = app.distance
+    disHeader.updateHeader()
+    app.angle = angleTo(cX1, cY1, cX2, cY2)//1
+    angHeader.result = app.angle
+    angHeader.updateHeader()
+    cX3, cY3 = getPointInDir(cX2, cY2, app.angle, app.distance)
+    circle3 = Circ(cX3,cY3, 18, 'chartreuse')
+    circle3.drawCircle()
